@@ -1,0 +1,8 @@
+#Todo() continue work at: 
+# https://cmake.org/cmake/help/latest/guide/importing-exporting/index.html#creating-a-package-configuration-file
+
+@PACKAGE_INIT@
+
+include("${CMAKE_CURRENT_LIST_DIR}/MathFunctionsTargets.cmake")
+
+check_required_components(MathFunctions)
