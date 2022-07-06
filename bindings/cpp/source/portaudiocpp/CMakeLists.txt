@@ -1,7 +1,9 @@
-set(portaudio-cpp-sources-asio
-    AsioDeviceAdapter.cxx
-    PARENT_SCOPE
-)
+find_package(ASIO)
+if(ASIO_FOUND)
+    set(portaudio-cpp-sources-asio AsioDeviceAdapter.cxx PARENT_SCOPE)
+else()
+    set(portaudio-cpp-sources-asio PARENT_SCOPE)
+endif()
 
 set(portaudio-cpp-sources
     ${CMAKE_CURRENT_SOURCE_DIR}/BlockingStream.cxx

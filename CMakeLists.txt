@@ -340,6 +340,8 @@ endif()
 source_group("Public Header Files" FILES ${PORTAUDIO_PUBLIC_HEADERS})
 target_sources(PortAudio PRIVATE ${PORTAUDIO_PUBLIC_HEADERS})
 
+add_subdirectory(bindings/cpp)
+
 #
 # Installation
 #

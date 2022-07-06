@@ -31,13 +31,12 @@ target_include_directories(portaudiocpp PUBLIC
 )
 target_compile_features(portaudiocpp PUBLIC cxx_std_14) # There is no benefit of using c++11
 
-# ## Export ###
+### Export ###
 
-# make cache variables for install destinations
 include(GNUInstallDirs)
 
 install(TARGETS portaudiocpp
-    EXPORT PortAudioTargets
+    EXPORT PortAudioCppTargets
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
@@ -45,23 +44,23 @@ install(TARGETS portaudiocpp
 )
 
 # Todo(export) copy header files:
-install(FILES MathFunctions.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+file(GLOB_RECURSE portaudiocpp-header-files include/*.hxx) # define header-files
+install(FILES ${portaudiocpp-header-files} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
-install(EXPORT PortAudioTargets
-    FILE MathFunctionsTargets.cmake
+install(EXPORT PortAudioCppTargets
+    FILE PortAudioCppTargets.cmake
     NAMESPACE PortAudio::
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/MathFunctions
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/PortAudio
 )
 
-# Create theactual package
 include(CMakePackageConfigHelpers)
-configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
-    "${CMAKE_CURRENT_BINARY_DIR}/MathFunctionsConfig.cmake"
-    INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/MathFunctions
+configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/PortAudioCppConfig.cmake.in
+    "${CMAKE_CURRENT_BINARY_DIR}/PortAudioCppConfig.cmake"
+    INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/PortAudio
 )
 
 install(FILES
-          "${CMAKE_CURRENT_BINARY_DIR}/MathFunctionsConfig.cmake"
-          "${CMAKE_CURRENT_BINARY_DIR}/MathFunctionsConfigVersion.cmake"
-        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/MathFunctions
+          "${CMAKE_CURRENT_BINARY_DIR}/PortAudioCppConfig.cmake"
+          "${CMAKE_CURRENT_BINARY_DIR}/PortAudioCppConfigVersion.cmake"
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/PortAudio
 )
