@@ -63,7 +63,7 @@ namespace portaudio
 
         // -------------------------------------------------------------------------------
 
-        FunCallbackStream();
+        FunCallbackStream() = default;
         FunCallbackStream(const StreamParameters &parameters, CallbackFunPtr funPtr, void *userData);
         ~FunCallbackStream();
 

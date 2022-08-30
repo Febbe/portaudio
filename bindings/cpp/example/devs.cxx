@@ -129,8 +129,8 @@ int main(int, char*[])
             std::cout << "Default sample rate         = " << (*i).defaultSampleRate() << std::endl; // 8.2
 
             // Poll for standard sample rates:
-            portaudio::DirectionSpecificStreamParameters inputParameters((*i), (*i).maxInputChannels(), portaudio::INT16, true, 0.0, NULL);
-            portaudio::DirectionSpecificStreamParameters outputParameters((*i), (*i).maxOutputChannels(), portaudio::INT16, true, 0.0, NULL);
+            portaudio::DirectionSpecificStreamParameters inputParameters((*i), (*i).maxInputChannels(), portaudio::INT16, true, 0.0, nullptr);
+            portaudio::DirectionSpecificStreamParameters outputParameters((*i), (*i).maxOutputChannels(), portaudio::INT16, true, 0.0, nullptr);
 
             if (inputParameters.numChannels() > 0)
             {

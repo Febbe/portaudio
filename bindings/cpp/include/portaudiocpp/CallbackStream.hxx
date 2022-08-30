@@ -12,26 +12,24 @@
 // Declaration(s):
 namespace portaudio
 {
-
-
-    //////
-    /// @brief Base class for all Streams which use a callback-based mechanism.
-    //////
-    class CallbackStream : public Stream
-    {
+    /**
+     * @brief Base class for all Streams which use a callback-based mechanism.
+     */
+    class CallbackStream : public Stream {
+    public:
+        CallbackStream(const CallbackStream &) = delete;
+        CallbackStream &operator=(const CallbackStream &) = delete;
+        CallbackStream(CallbackStream &&) = default;
+        CallbackStream &operator=(CallbackStream &&) = default;
+        
+        ~CallbackStream() override = default;
     protected:
-        CallbackStream();
-        virtual ~CallbackStream();
+        CallbackStream() = default;
 
     public:
         // stream info (time-varying)
         double cpuLoad() const;
-
-    private:
-        CallbackStream(const CallbackStream &); // non-copyable
-        CallbackStream &operator=(const CallbackStream &); // non-copyable
     };
-
 
 } // namespace portaudio
 

@@ -15,11 +15,11 @@ namespace portaudio
     // -----------------------------------------------------------------------------------
 
     // Static members:
-    System *System::instance_ = NULL;
+    System *System::instance_ = nullptr;
     int System::initCount_ = 0;
-    HostApi **System::hostApis_ = NULL;
-    Device **System::devices_ = NULL;
-    Device *System::nullDevice_ = NULL;
+    HostApi **System::hostApis_ = nullptr;
+    Device **System::devices_ = nullptr;
+    Device *System::nullptrDevice_ = nullptr;
 
     // -----------------------------------------------------------------------------------
 
@@ -40,7 +40,7 @@ namespace portaudio
         if (initCount_ == 1)
         {
             // Create singleton:
-            assert(instance_ == NULL);
+            assert(instance_ == nullptr);
             instance_ = new System();
 
             // Initialize the PortAudio system:
@@ -71,8 +71,8 @@ namespace portaudio
                     hostApis_[i] = new HostApi(i);
             }
 
-            // Create null device:
-            nullDevice_ = new Device(paNoDevice);
+            // Create nullptr device:
+            nullptrDevice_ = new Device(paNoDevice);
         }
     }
 
@@ -82,12 +82,12 @@ namespace portaudio
 
         if (initCount_ == 1)
         {
-            // Destroy null device:
-            delete nullDevice_;
+            // Destroy nullptr device:
+            delete nullptrDevice_;
 
             // Destroy host api array:
             {
-                if (hostApis_ != NULL)
+                if (hostApis_ != nullptr)
                 {
                     int numHostApis = instance().hostApiCount();
 
@@ -95,13 +95,13 @@ namespace portaudio
                         delete hostApis_[i];
 
                     delete[] hostApis_;
-                    hostApis_ = NULL;
+                    hostApis_ = nullptr;
                 }
             }
 
             // Destroy device array:
             {
-                if (devices_ != NULL)
+                if (devices_ != nullptr)
                 {
                     int numDevices = instance().deviceCount();
 
@@ -109,17 +109,17 @@ namespace portaudio
                         delete devices_[i];
 
                     delete[] devices_;
-                    devices_ = NULL;
+                    devices_ = nullptr;
                 }
             }
 
             // Terminate the PortAudio system:
-            assert(instance_ != NULL);
+            assert(instance_ != nullptr);
             err = Pa_Terminate();
 
             // Destroy singleton:
             delete instance_;
-            instance_ = NULL;
+            instance_ = nullptr;
         }
 
         if (initCount_ > 0)
@@ -133,13 +133,12 @@ namespace portaudio
     System &System::instance()
     {
         assert(exists());
-
         return *instance_;
     }
 
     bool System::exists()
     {
-        return (instance_ != NULL);
+        return (instance_ != nullptr);
     }
 
     // -----------------------------------------------------------------------------------
@@ -219,7 +218,7 @@ namespace portaudio
     }
 
     //////
-    /// Returns the System's default input Device, or the null Device if none
+    /// Returns the System's default input Device, or the nullptr Device if none
     /// was available.
     //////
     Device &System::defaultInputDevice()
@@ -229,7 +228,7 @@ namespace portaudio
     }
 
     //////
-    /// Returns the System's default output Device, or the null Device if none
+    /// Returns the System's default output Device, or the nullptr Device if none
     /// was available.
     //////
     Device &System::defaultOutputDevice()
@@ -251,13 +250,12 @@ namespace portaudio
         }
 
         if (index == -1)
-            return System::instance().nullDevice();
+            return System::instance().nullptrDevice();
 
         return *devices_[index];
     }
 
-    int System::deviceCount()
-    {
+    int System::deviceCount() {
         PaDeviceIndex count = Pa_GetDeviceCount();
 
         if (count < 0)
@@ -266,20 +264,17 @@ namespace portaudio
         return count;
     }
 
-    Device &System::nullDevice()
-    {
-        return *nullDevice_;
+    Device &System::nullptrDevice() {
+        return *nullptrDevice_;
     }
 
     // -----------------------------------------------------------------------------------
 
-    void System::sleep(long msec)
-    {
+    void System::sleep(long msec) {
         Pa_Sleep(msec);
     }
 
-    int System::sizeOfSample(PaSampleFormat format)
-    {
+    int System::sizeOfSample(PaSampleFormat format) {
         PaError err = Pa_GetSampleSize(format);
         if (err < 0)
         {
@@ -289,19 +284,5 @@ namespace portaudio
 
         return err;
     }
-
-    // -----------------------------------------------------------------------------------
-
-    System::System()
-    {
-        // (left blank intentionally)
-    }
-
-    System::~System()
-    {
-        // (left blank intentionally)
-    }
-
-    // -----------------------------------------------------------------------------------
 
 } // namespace portaudio

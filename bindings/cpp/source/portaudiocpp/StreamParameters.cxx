@@ -9,19 +9,12 @@ namespace portaudio
     // -----------------------------------------------------------------------------------
 
     //////
-    /// Default constructor; does nothing.
-    //////
-    StreamParameters::StreamParameters()
-    {
-    }
-
-    //////
     /// Sets up the all parameters needed to open either a half-duplex or full-duplex Stream.
     ///
     /// @param inputParameters The parameters for the input direction of the to-be opened
-    /// Stream or DirectionSpecificStreamParameters::null() for an output-only Stream.
+    /// Stream or DirectionSpecificStreamParameters::nullptr() for an output-only Stream.
     /// @param outputParameters The parameters for the output direction of the to-be opened
-    /// Stream or DirectionSpecificStreamParameters::null() for an input-only Stream.
+    /// Stream or DirectionSpecificStreamParameters::nullptr() for an input-only Stream.
     /// @param sampleRate The to-be opened Stream's sample rate in Hz.
     /// @param framesPerBuffer The number of frames per buffer for a CallbackStream, or
     /// the preferred buffer granularity for a BlockingStream.

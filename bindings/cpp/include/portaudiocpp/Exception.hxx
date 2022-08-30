@@ -20,9 +20,9 @@ namespace portaudio
     class Exception : public std::exception
     {
     public:
-        virtual ~Exception() throw() {}
+        virtual ~Exception() noexcept {}
 
-        virtual const char *what() const throw() = 0;
+        virtual const char *what() const noexcept = 0;
     };
 
     // -----------------------------------------------------------------------------------
@@ -56,7 +56,7 @@ namespace portaudio
     public:
         explicit PaException(PaError error);
 
-        const char *what() const throw();
+        const char *what() const noexcept;
 
         PaError paError() const;
         const char *paErrorText() const;
@@ -88,7 +88,7 @@ namespace portaudio
 
         PaCppException(ExceptionSpecifier specifier);
 
-        const char *what() const throw();
+        const char *what() const noexcept;
 
         ExceptionSpecifier specifier() const;
 

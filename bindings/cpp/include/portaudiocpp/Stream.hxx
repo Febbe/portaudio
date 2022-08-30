@@ -1,5 +1,6 @@
 #ifndef INCLUDED_PORTAUDIO_STREAM_HXX
 #define INCLUDED_PORTAUDIO_STREAM_HXX
+#pragma once
 
 #include "portaudio.h"
 
@@ -34,9 +35,14 @@ namespace portaudio
     class Stream
     {
     public:
-        // Opening/closing:
         virtual ~Stream();
 
+        Stream(const Stream &) = delete; // non-copyable
+        Stream &operator=(const Stream &) = delete; // non-copyable
+        Stream(Stream &&) = default;
+        Stream &operator=(Stream &&) = default;
+
+        // Opening/closing:
         virtual void close();
         bool isOpen() const;
 
@@ -65,13 +71,9 @@ namespace portaudio
         PaStream *paStream();
 
     protected:
-        Stream(); // abstract class
+        Stream() = default; // abstract class
 
-        PaStream *stream_;
-
-    private:
-        Stream(const Stream &); // non-copyable
-        Stream &operator=(const Stream &); // non-copyable
+        PaStream *stream_{};
     };
 
 

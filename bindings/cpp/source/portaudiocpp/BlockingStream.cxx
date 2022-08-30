@@ -5,46 +5,29 @@
 #include "portaudiocpp/StreamParameters.hxx"
 #include "portaudiocpp/Exception.hxx"
 
-namespace portaudio
-{
+namespace portaudio {
 
-    // --------------------------------------------------------------------------------------
-
-    BlockingStream::BlockingStream()
-    {
-    }
-
-    BlockingStream::BlockingStream(const StreamParameters &parameters)
-    {
+    BlockingStream::BlockingStream(const StreamParameters &parameters) {
         open(parameters);
     }
 
-    BlockingStream::~BlockingStream()
-    {
-        try
-        {
+    BlockingStream::~BlockingStream() {
+        try {
             close();
         }
-        catch (...)
-        {
+        catch (...) {
             // ignore all errors
         }
     }
 
-    // --------------------------------------------------------------------------------------
-
-    void BlockingStream::open(const StreamParameters &parameters)
-    {
+    void BlockingStream::open(const StreamParameters &parameters) {
         PaError err = Pa_OpenStream(&stream_, parameters.inputParameters().paStreamParameters(), parameters.outputParameters().paStreamParameters(),
-            parameters.sampleRate(), parameters.framesPerBuffer(), parameters.flags(), NULL, NULL);
+            parameters.sampleRate(), parameters.framesPerBuffer(), parameters.flags(), nullptr, nullptr);
 
-        if (err != paNoError)
-        {
+        if (err != paNoError) {
             throw PaException(err);
         }
     }
-
-    // --------------------------------------------------------------------------------------
 
     void BlockingStream::read(void *buffer, unsigned long numFrames)
     {

@@ -78,7 +78,7 @@ namespace portaudio
 
         int deviceCount();
 
-        static Device &nullDevice();
+        static Device &nullptrDevice();
 
         // -------------------------------------------------------------------------------
 
@@ -87,8 +87,8 @@ namespace portaudio
         int sizeOfSample(PaSampleFormat format);
 
     private:
-        System();
-        ~System();
+        System() = default;
+        ~System() = default;
 
         static System *instance_;
         static int initCount_;
@@ -96,7 +96,7 @@ namespace portaudio
         static HostApi **hostApis_;
         static Device **devices_;
 
-        static Device *nullDevice_;
+        static Device *nullptrDevice_;
     };
 
 

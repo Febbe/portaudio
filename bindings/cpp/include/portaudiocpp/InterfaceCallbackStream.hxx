@@ -21,26 +21,23 @@ namespace portaudio
 // Declaration(s):
 namespace portaudio
 {
-
-
     //////
     /// @brief Callback stream using an instance of an object that's derived from the CallbackInterface
     /// interface.
     //////
-    class InterfaceCallbackStream : public CallbackStream
-    {
+    class InterfaceCallbackStream final : public CallbackStream {
     public:
-        InterfaceCallbackStream();
+        InterfaceCallbackStream() = default;
         InterfaceCallbackStream(const StreamParameters &parameters, CallbackInterface &instance);
         ~InterfaceCallbackStream();
 
+        InterfaceCallbackStream(const InterfaceCallbackStream &) = delete;
+        InterfaceCallbackStream &operator=(const InterfaceCallbackStream &) = delete; 
+        InterfaceCallbackStream(InterfaceCallbackStream &&) = default;
+        InterfaceCallbackStream &operator=(InterfaceCallbackStream &&) = default;
+
         void open(const StreamParameters &parameters, CallbackInterface &instance);
-
-    private:
-        InterfaceCallbackStream(const InterfaceCallbackStream &); // non-copyable
-        InterfaceCallbackStream &operator=(const InterfaceCallbackStream &); // non-copyable
     };
-
 
 } // portaudio
 

@@ -10,60 +10,48 @@ namespace portaudio
 
     // -----------------------------------------------------------------------------------
 
-    Stream::Stream() : stream_(NULL)
-    {
-    }
-
-    Stream::~Stream()
-    {
-        // (can't call close here,
-        // the derived class should atleast call
-        // close() in it's deconstructor)
+    Stream::~Stream() {
+        // can't call derived class's close() methods in destructor
+        this->Stream::close(); 
     }
 
     // -----------------------------------------------------------------------------------
 
-    //////
     /// Closes the Stream if it's open, else does nothing.
-    //////
-    void Stream::close()
-    {
-        if (isOpen() && System::exists())
-        {
+    void Stream::close() {
+        if (isOpen() && System::exists()) {
             PaError err = Pa_CloseStream(stream_);
-            stream_ = NULL;
+            stream_ = nullptr;
 
-            if (err != paNoError)
+            if (err != paNoError) {
                 throw PaException(err);
+            }
         }
     }
 
-    //////
     /// Returns true if the Stream is open.
-    //////
-    bool Stream::isOpen() const
-    {
-        return (stream_ != NULL);
+    bool Stream::isOpen() const {
+        return (stream_ != nullptr);
     }
 
     // -----------------------------------------------------------------------------------
 
-    void Stream::setStreamFinishedCallback(PaStreamFinishedCallback *callback)
-    {
+    void Stream::setStreamFinishedCallback(PaStreamFinishedCallback *callback) {
         PaError err = Pa_SetStreamFinishedCallback(stream_, callback);
 
-        if (err != paNoError)
+        if (err != paNoError){
             throw PaException(err);
+        }
     }
 
     // -----------------------------------------------------------------------------------
 
-    void Stream::start()
-    {
+    void Stream::start() {
         PaError err = Pa_StartStream(stream_);
 
-        if (err != paNoError)
+        if (err != paNoError) {
             throw PaException(err);
+        }
     }
 
     void Stream::stop()
@@ -113,7 +101,7 @@ namespace portaudio
     PaTime Stream::inputLatency() const
     {
         const PaStreamInfo *info = Pa_GetStreamInfo(stream_);
-        if (info == NULL)
+        if (info == nullptr)
         {
             throw PaException(paInternalError);
             return PaTime(0.0);
@@ -131,7 +119,7 @@ namespace portaudio
     PaTime Stream::outputLatency() const
     {
         const PaStreamInfo *info = Pa_GetStreamInfo(stream_);
-        if (info == NULL)
+        if (info == nullptr)
         {
             throw PaException(paInternalError);
             return PaTime(0.0);
@@ -150,7 +138,7 @@ namespace portaudio
     double Stream::sampleRate() const
     {
         const PaStreamInfo *info = Pa_GetStreamInfo(stream_);
-        if (info == NULL)
+        if (info == nullptr)
         {
             throw PaException(paInternalError);
             return 0.0;

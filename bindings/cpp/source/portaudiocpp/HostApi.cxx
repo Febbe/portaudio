@@ -7,49 +7,31 @@
 
 namespace portaudio
 {
-
-    // -----------------------------------------------------------------------------------
-
-    HostApi::HostApi(PaHostApiIndex index) : devices_(NULL)
+    HostApi::HostApi(PaHostApiIndex index) : devices_(0)
     {
-        try
-        {
+        try {
             info_ = Pa_GetHostApiInfo(index);
 
             // Create and populate devices array:
             int numDevices = deviceCount();
-
-            devices_ = new Device*[numDevices];
+            devices_.resize(numDevices);
 
             for (int i = 0; i < numDevices; ++i)
             {
                 PaDeviceIndex deviceIndex = Pa_HostApiDeviceIndexToDeviceIndex(index, i);
 
-                if (deviceIndex < 0)
-                {
+                if (deviceIndex < 0) {
                     throw PaException(deviceIndex);
                 }
 
                 devices_[i] = &System::instance().deviceByIndex(deviceIndex);
             }
         }
-        catch (const std::exception &e)
-        {
-            // Delete any (partially) constructed objects (deconstructor isn't called):
-            delete[] devices_; // devices_ is either NULL or valid
-
+        catch (const std::exception &e) {
             // Re-throw exception:
             throw e;
         }
     }
-
-    HostApi::~HostApi()
-    {
-        // Destroy devices array:
-        delete[] devices_;
-    }
-
-    // -----------------------------------------------------------------------------------
 
     PaHostApiTypeId HostApi::typeId() const
     {
@@ -76,8 +58,6 @@ namespace portaudio
         return info_->deviceCount;
     }
 
-    // -----------------------------------------------------------------------------------
-
     HostApi::DeviceIterator HostApi::devicesBegin()
     {
         DeviceIterator tmp;
@@ -92,8 +72,6 @@ namespace portaudio
         return tmp;
     }
 
-    // -----------------------------------------------------------------------------------
-
     Device &HostApi::defaultInputDevice() const
     {
         return System::instance().deviceByIndex(info_->defaultInputDevice);
@@ -104,8 +82,6 @@ namespace portaudio
         return System::instance().deviceByIndex(info_->defaultOutputDevice);
     }
 
-    // -----------------------------------------------------------------------------------
-
     bool HostApi::operator==(const HostApi &rhs) const
     {
         return (typeId() == rhs.typeId());
@@ -115,7 +91,5 @@ namespace portaudio
     {
         return !(*this == rhs);
     }
-
-    // -----------------------------------------------------------------------------------
 
 } // namespace portaudio

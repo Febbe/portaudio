@@ -38,7 +38,7 @@ public:
     int generate(const void *inputBuffer, void *outputBuffer, unsigned long framesPerBuffer,
         const PaStreamCallbackTimeInfo *timeInfo, PaStreamCallbackFlags statusFlags)
     {
-        assert(outputBuffer != NULL);
+        assert(outputBuffer != nullptr);
 
         float **out = static_cast<float **>(outputBuffer);
 
@@ -84,8 +84,8 @@ int main(int, char *[])
         portaudio::System &sys = portaudio::System::instance();
 
         // Set up the parameters required to open a (Callback)Stream:
-        portaudio::DirectionSpecificStreamParameters outParams(sys.defaultOutputDevice(), 2, portaudio::FLOAT32, false, sys.defaultOutputDevice().defaultLowOutputLatency(), NULL);
-        portaudio::StreamParameters params(portaudio::DirectionSpecificStreamParameters::null(), outParams, SAMPLE_RATE, FRAMES_PER_BUFFER, paClipOff);
+        portaudio::DirectionSpecificStreamParameters outParams(sys.defaultOutputDevice(), 2, portaudio::FLOAT32, false, sys.defaultOutputDevice().defaultLowOutputLatency(), nullptr);
+        portaudio::StreamParameters params(portaudio::DirectionSpecificStreamParameters::nullptr(), outParams, SAMPLE_RATE, FRAMES_PER_BUFFER, paClipOff);
 
         std::cout << "Opening stereo output stream..." << std::endl;
 

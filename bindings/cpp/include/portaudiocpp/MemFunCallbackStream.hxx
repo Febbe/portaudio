@@ -33,18 +33,16 @@ namespace portaudio
 
         // -------------------------------------------------------------------------------
 
-        MemFunCallbackStream()
-        {
-        }
+        MemFunCallbackStream() = default;
 
         MemFunCallbackStream(const StreamParameters &parameters, T &instance, CallbackFunPtr memFun) : adapter_(instance, memFun)
         {
-            open(parameters);
+            this->MemFunCallbackStream::open(parameters);
         }
 
         ~MemFunCallbackStream()
         {
-            close();
+            this->MemFunCallbackStream::close();
         }
 
         void open(const StreamParameters &parameters, T &instance, CallbackFunPtr memFun)

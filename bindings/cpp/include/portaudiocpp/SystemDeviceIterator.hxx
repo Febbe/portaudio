@@ -34,11 +34,11 @@ namespace portaudio
     class System::DeviceIterator
     {
     public:
-        typedef std::bidirectional_iterator_tag iterator_category;
-        typedef Device value_type;
-        typedef ptrdiff_t difference_type;
-        typedef Device * pointer;
-        typedef Device & reference;
+        using iterator_category = std::bidirectional_iterator_tag;
+        using value_type = Device;
+        using difference_type = ptrdiff_t;
+        using pointer = value_type*;
+        using reference = value_type&;
 
         Device &operator*() const;
         Device *operator->() const;

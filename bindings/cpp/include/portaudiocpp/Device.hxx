@@ -37,9 +37,14 @@ namespace portaudio
     /// Note that Device objects are very light-weight and can be passed around
     /// by-value.
     //////
-    class Device
-    {
+    class Device {
     public:
+        Device(const Device &) = delete;
+        Device &operator=(const Device &) = delete;
+        Device(Device &&) = default;
+        Device &operator=(Device &&) = default;
+        ~Device() = default;
+
         // query info: name, max in channels, max out channels,
         // default low/high input/output latency, default sample rate
         PaDeviceIndex index() const;
@@ -75,10 +80,6 @@ namespace portaudio
         friend class System;
 
         explicit Device(PaDeviceIndex index);
-        ~Device();
-
-        Device(const Device &); // non-copyable
-        Device &operator=(const Device &); // non-copyable
     };
 
     // -----------------------------------------------------------------------------------

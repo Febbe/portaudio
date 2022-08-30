@@ -28,14 +28,13 @@ namespace portaudio
     ///
     /// Compliant with the STL bidirectional iterator concept.
     //////
-    class System::HostApiIterator
-    {
+    class System::HostApiIterator {
     public:
-        typedef std::bidirectional_iterator_tag iterator_category;
-        typedef Device value_type;
-        typedef ptrdiff_t difference_type;
-        typedef HostApi * pointer;
-        typedef HostApi & reference;
+        using iterator_category = std::bidirectional_iterator_tag ;
+        using value_type = Device;
+        using difference_type = ptrdiff_t;
+        using pointer = value_type*;
+        using reference = value_type&;
 
         HostApi &operator*() const;
         HostApi *operator->() const;

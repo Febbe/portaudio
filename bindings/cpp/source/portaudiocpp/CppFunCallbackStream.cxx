@@ -38,9 +38,6 @@ namespace portaudio
 
     // -----------------------------------------------------------------------------------
 
-    FunCallbackStream::FunCallbackStream()
-    {
-    }
 
     FunCallbackStream::FunCallbackStream(const StreamParameters &parameters, CallbackFunPtr funPtr, void *userData) : adapterData_(funPtr, userData)
     {

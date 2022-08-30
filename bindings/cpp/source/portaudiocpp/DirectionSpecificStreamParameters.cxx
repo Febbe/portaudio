@@ -10,7 +10,7 @@ namespace portaudio
     //////
     /// Returns a `nil' DirectionSpecificStreamParameters object. This can be used to
     /// specify that one direction of a Stream is not required (i.e. when creating
-    /// a half-duplex Stream). All fields of the null DirectionSpecificStreamParameters
+    /// a half-duplex Stream). All fields of the nullptr DirectionSpecificStreamParameters
     /// object are invalid except for the device and the number of channel, which are set
     /// to paNoDevice and 0 respectively.
     //////
@@ -91,7 +91,7 @@ namespace portaudio
         if (paStreamParameters_.channelCount > 0 && paStreamParameters_.device != paNoDevice)
             return &paStreamParameters_;
         else
-            return NULL;
+            return nullptr;
     }
 
     const PaStreamParameters *DirectionSpecificStreamParameters::paStreamParameters() const
@@ -99,7 +99,7 @@ namespace portaudio
         if (paStreamParameters_.channelCount > 0 && paStreamParameters_.device != paNoDevice)
             return &paStreamParameters_;
         else
-            return NULL;
+            return nullptr;
     }
 
     Device &DirectionSpecificStreamParameters::device() const

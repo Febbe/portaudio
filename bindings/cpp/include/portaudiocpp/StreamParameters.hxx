@@ -27,7 +27,7 @@ namespace portaudio
     class StreamParameters
     {
     public:
-        StreamParameters();
+        StreamParameters() = default;
         StreamParameters(const DirectionSpecificStreamParameters &inputParameters,
             const DirectionSpecificStreamParameters &outputParameters, double sampleRate,
             unsigned long framesPerBuffer, PaStreamFlags flags);
@@ -64,9 +64,9 @@ namespace portaudio
         DirectionSpecificStreamParameters outputParameters_;
 
         // Common parameters:
-        double sampleRate_;
-        unsigned long framesPerBuffer_;
-        PaStreamFlags flags_;
+        double sampleRate_{};
+        unsigned long framesPerBuffer_{};
+        PaStreamFlags flags_{};
     };
 
 

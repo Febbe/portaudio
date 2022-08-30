@@ -14,13 +14,9 @@ namespace portaudio
         Device::Device(PaDeviceIndex index) : index_(index)
         {
             if (index == paNoDevice)
-                info_ = NULL;
+                info_ = nullptr;
             else
                 info_ = Pa_GetDeviceInfo(index);
-        }
-
-        Device::~Device()
-        {
         }
 
         PaDeviceIndex Device::index() const
@@ -30,7 +26,7 @@ namespace portaudio
 
         const char *Device::name() const
         {
-            if (info_ == NULL)
+            if (info_ == nullptr)
                 return "";
 
             return info_->name;
@@ -38,7 +34,7 @@ namespace portaudio
 
         int Device::maxInputChannels() const
         {
-            if (info_ == NULL)
+            if (info_ == nullptr)
                 return 0;
 
             return info_->maxInputChannels;
@@ -46,7 +42,7 @@ namespace portaudio
 
         int Device::maxOutputChannels() const
         {
-            if (info_ == NULL)
+            if (info_ == nullptr)
                 return 0;
 
             return info_->maxOutputChannels;
@@ -54,7 +50,7 @@ namespace portaudio
 
         PaTime Device::defaultLowInputLatency() const
         {
-            if (info_ == NULL)
+            if (info_ == nullptr)
                 return static_cast<PaTime>(0.0);
 
             return info_->defaultLowInputLatency;
@@ -62,7 +58,7 @@ namespace portaudio
 
         PaTime Device::defaultHighInputLatency() const
         {
-            if (info_ == NULL)
+            if (info_ == nullptr)
                 return static_cast<PaTime>(0.0);
 
             return info_->defaultHighInputLatency;
@@ -70,7 +66,7 @@ namespace portaudio
 
         PaTime Device::defaultLowOutputLatency() const
         {
-            if (info_ == NULL)
+            if (info_ == nullptr)
                 return static_cast<PaTime>(0.0);
 
             return info_->defaultLowOutputLatency;
@@ -78,7 +74,7 @@ namespace portaudio
 
         PaTime Device::defaultHighOutputLatency() const
         {
-            if (info_ == NULL)
+            if (info_ == nullptr)
                 return static_cast<PaTime>(0.0);
 
             return info_->defaultHighOutputLatency;
@@ -86,7 +82,7 @@ namespace portaudio
 
         double Device::defaultSampleRate() const
         {
-            if (info_ == NULL)
+            if (info_ == nullptr)
                 return 0.0;
 
             return info_->defaultSampleRate;
@@ -145,8 +141,8 @@ namespace portaudio
 
         HostApi &Device::hostApi()
         {
-            // NOTE: will cause an exception when called for the null device
-            if (info_ == NULL)
+            // NOTE: will cause an exception when called for the nullptr device
+            if (info_ == nullptr)
                 throw PaException(paInternalError);
 
             return System::instance().hostApiByIndex(info_->hostApi);
@@ -154,8 +150,8 @@ namespace portaudio
 
         const HostApi &Device::hostApi() const
         {
-            // NOTE; will cause an exception when called for the null device
-            if (info_ == NULL)
+            // NOTE; will cause an exception when called for the nullptr device
+            if (info_ == nullptr)
                 throw PaException(paInternalError);
 
             return System::instance().hostApiByIndex(info_->hostApi);

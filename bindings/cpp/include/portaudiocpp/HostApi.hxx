@@ -7,6 +7,8 @@
 
 #include "portaudiocpp/System.hxx"
 
+#include <vector>
+
 // ---------------------------------------------------------------------------------------
 
 // Forward declaration(s):
@@ -33,7 +35,14 @@ namespace portaudio
     class HostApi
     {
     public:
-        typedef System::DeviceIterator DeviceIterator;
+        using DeviceIterator = System::DeviceIterator;
+
+        ~HostApi() = default;
+       
+        HostApi(const HostApi &) = delete;
+        HostApi &operator=(const HostApi &) = delete;
+        HostApi(HostApi &&) = default;
+        HostApi &operator=(HostApi &&) = default;
 
         // query info: id, name, numDevices
         PaHostApiTypeId typeId() const;
@@ -55,16 +64,12 @@ namespace portaudio
 
     private:
         const PaHostApiInfo *info_;
-        Device **devices_;
+        std::vector<Device *> devices_;
 
     private:
         friend class System;
 
         explicit HostApi(PaHostApiIndex index);
-        ~HostApi();
-
-        HostApi(const HostApi &); // non-copyable
-        HostApi &operator=(const HostApi &); // non-copyable
     };
 
 
